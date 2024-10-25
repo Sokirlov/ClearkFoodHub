@@ -10,6 +10,7 @@ from .config import *
 #     DEBUG = True
 #     ALLOWED_HOSTS = ['*']
 
+ALLOWED_HOSTS = ['cfh.pp.ua', 'www.cfh.pp.ua', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
