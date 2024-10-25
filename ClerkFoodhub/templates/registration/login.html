@@ -56,7 +56,7 @@
             {% for f in form %}
                 <p>{{ f.label }}&nbsp;{{ f }}</p>
             {% endfor %}
-            {% csrf_token %}
+{#            {% csrf_token %}#}
             <input type="hidden" name="next" value="{{ next }}"/>
             <p><input id="login_button" type="submit" value="Увійти"></p>
         </form>
