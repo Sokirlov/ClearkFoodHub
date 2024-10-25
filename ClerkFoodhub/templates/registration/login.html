@@ -45,18 +45,16 @@
     {% if form.errors %}
         <p style="text-align: center; color: red; ">
             Ім'я та пароль не підходять !
-{#            Your username and password didn't match.#}
-{#            Please try again.#}
         </p>
     {% else %}
         <p style="text-align: center;">Увійдіть у систему:</p>
     {% endif %}
     <div class="login-form">
         <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
             {% for f in form %}
                 <p>{{ f.label }}&nbsp;{{ f }}</p>
             {% endfor %}
-{#            {% csrf_token %}#}
             <input type="hidden" name="next" value="{{ next }}"/>
             <p><input id="login_button" type="submit" value="Увійти"></p>
         </form>
