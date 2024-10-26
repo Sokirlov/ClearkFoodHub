@@ -18,6 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
         body{
             font-family: 'Mulish', sans-serif;
@@ -25,6 +26,21 @@
         a{
             color: #28a745;
             text-decoration: underline;
+        }
+
+        @media screen and (max-width: 1000px) {
+            button.navbar-toggler > #menu{
+                display: none;
+            }
+            button.navbar-toggler > #close{
+                display: block;
+            }
+            button.navbar-toggler.collapsed > #menu{
+                display: block;
+            }
+            button.navbar-toggler.collapsed > #close{
+                display: none;
+            }
         }
     </style>
     {% block header %}{% endblock %}
