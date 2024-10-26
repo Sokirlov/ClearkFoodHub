@@ -117,6 +117,14 @@
         margin-bottom: 4rem;
         color: #777;
     }
+    @media screen and (max-width: 1000px){
+        .food_block{
+            width: 100%;
+        }
+        .cart_btn{
+            width: 95%;
+        }
+    }
     </style>
     <script>
         function validate_count() {
@@ -199,7 +207,7 @@
                                     <div id="flush-collapse_{{ provider|slugify }}_{{ forloop.counter }}"
                                          class="cat-container p-1 accordion-collapse collapse" aria-labelledby="flush-heading_{{ provider|slugify }}_{{ forloop.counter }}" data-bs-parent="#accordionFlushFood">
                                         {% for foo in cat.foods.all %}
-                                            <div class="p-2 d-flex flex-row food_block">
+                                            <div class="food_block">
                                                 <div class="pl-1 w-100">
                                                     <div class="food_name">
                                                         <a href="{{ foo.link }}" target="_blank">{{ foo.title }}</a>
