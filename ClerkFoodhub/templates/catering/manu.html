@@ -50,6 +50,7 @@
         position: relative;
         min-width: 200px;
         margin: 2px;
+        padding: 5px;
     }
     .food_category:nth-child(2n){
         background-color: #eee;
@@ -117,12 +118,31 @@
         margin-bottom: 4rem;
         color: #777;
     }
+    .done{
+        background: #edffea;
+    }
     @media screen and (max-width: 1000px){
+        h1{
+            font-size: 3rem;
+        }
+        .description{
+            font-size: 18px;
+        }
         .food_block{
             width: 100%;
+            margin: 10px 2px;
         }
         .cart_btn{
             width: 95%;
+            position: relative;
+            padding: 2px;
+        }
+        .cart{
+            top:auto;
+            background: #dddcdc;
+        }
+        .cart h5{
+            margin-top: 5px;
         }
     }
     </style>
@@ -190,7 +210,7 @@
 {#    <div style="height: 60px;">&nbsp;</div>#}
     <div class="w-100 d-flex flex-colomn">
     {#    <div class="col-1">&nbsp;</div>#}
-        <div class="col-9">
+        <div class="col-xl-9">
             {% for provider in providers %}
                 <div>
                     <h1 class="ml-5">{{ provider }}</h1>
@@ -240,7 +260,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-3 cart">
+        <div class="col-xl-3 cart">
         <h5></span>Замовлення на:</span> <span>{{ order_day }}</span></h5>
         <form method="post" name="DTAA">
             {% csrf_token %}

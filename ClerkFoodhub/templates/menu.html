@@ -1,14 +1,36 @@
 {% block menu %}
-    <div class="container-lg">
-        <div class="px-3">
-            <div class="navbar ">
-                <a class="nav-link" href="{% url 'cart:main' %}">Головна</a>
-                <a class="nav-link"  href="{% url 'cart:history' %}">Історія замовлень</a>
-                <a class="nav-link"  href="{% url 'cart:spliwise' %}">Борги</a>
-                <a class="nav-link text-warning"  href="/admin/">Admin</a>
-                <a class="nav-link"  href="/accounts/logout/">logout</a>
-                <div>Hello:  &nbsp;<span class="text-capitalize"> {{ user.get_username }}</span></div>
+    {#    <div class="container-lg">#}
+    {#        <div class="px-3">#}
+    {#            <div class="navbar ">#}
+    {#                <a class="nav-link" href="{% url 'cart:main' %}">Головна</a>#}
+    {#                <a class="nav-link" href="{% url 'cart:history' %}">Історія замовлень</a>#}
+    {#                <a class="nav-link" href="{% url 'cart:spliwise' %}">Борги</a>#}
+    {#                <a class="nav-link text-warning" href="/admin/">Admin</a>#}
+    {#                <a class="nav-link" href="/accounts/logout/">logout</a>#}
+    {#                <div>Hello: &nbsp;<span class="text-capitalize"> {{ user.get_username }}</span></div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
+
+    <nav class="navbar navbar-expand-lg navbar">
+        <div>Hello: &nbsp;<span class="text-capitalize"> {{ user.get_username }}</span></div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            XX
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav text-right pr-3">
+                <a class="nav-link py-4" href="{% url 'cart:main' %}">Головна</a>
+                <a class="nav-link py-4" href="{% url 'cart:history' %}">Історія замовлень</a>
+                <a class="nav-link py-4" href="{% url 'cart:spliwise' %}">Борги</a>
+                <a class="nav-link text-warning py-4" href="/admin/">Admin</a>
+                <a class="nav-link py-4" href="/accounts/logout/">logout</a>
+
+
             </div>
         </div>
-    </div>
+    </nav>
+
 {% endblock %}
