@@ -114,12 +114,22 @@
         flex-wrap: nowrap;
         justify-content: flex-end;
     }
+    .cart_btn input{
+        width: 45px;
+        padding: 5px;
+    }
     .description{
         margin-bottom: 4rem;
         color: #777;
     }
     .done{
         background: #edffea;
+    }
+    .delete_cart{
+        display: none;
+    }
+    .done .delete_cart{
+        display: block;
     }
     @media screen and (max-width: 1000px){
         h1{
@@ -132,10 +142,20 @@
             width: 100%;
             margin: 10px 2px;
         }
+        .food_name{
+            font-size: 28px;
+        }
+
         .cart_btn{
             width: 95%;
             position: relative;
             padding: 2px;
+        }
+        .cart_btn > *{
+            margin: 0 5px;
+        }
+        #cart_order{
+            display: none;
         }
         .cart{
             top:auto;
@@ -144,16 +164,37 @@
         .cart h5{
             margin-top: 5px;
         }
+        em{
+            bottom: 5px;
+        }
+    }
+    .accordion-item .accordion-button {
+        position: sticky;
+        top: 100px;
+        z-index: 10;
+        background: white;
     }
     </style>
     <script>
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const collapse = button.getAttribute('data-bs-target');
+                setTimeout(() => {
+                    const openItem = document.querySelector(collapse);
+                    if (openItem && openItem.classList.contains('show')) {
+                        button.scrollIntoView({behavior: 'smooth', block: 'start'});
+                    }
+                }, 350);  // Час для завершення анімації відкриття Bootstrap
+            });
+        });
+
+
+
         function validate_count() {
             $('input').each(function () {
                 if ($(this).val() == 0) {
-                    console.log('if', $('input').val())
                     $(this).parent().parent().addClass('text-decoration-line-through')
                 } else {
-                    console.log('else', $('input').val())
                     $(this).parent().parent().removeClass('text-decoration-line-through')
                 }
             })
@@ -164,6 +205,12 @@
             $('.cart_object').each(function() {
                 let price = $(this).find('.cart_food_price').text().trim();
                 let quantity = $(this).find("input").val()
+                let good = $(this).find("input").attr('name')
+                if(quantity == 0){
+                    $('#' + good).removeClass('done')
+                }else {
+                    $('#' + good).addClass('done')
+                }
                 total += parseFloat(price) * parseFloat(quantity);
             });
             $('#cart_summ_order').html(total)
@@ -171,11 +218,14 @@
         $(document).ready(function () {
             cart_order_sum()
             $('.cart_add').click(function () {
+                {#console.log('this', $(this).parent().parent().parent())#}
                 let food_id = $(this).attr('food_id')
                 let food_name = $(this).attr('food_name')
                 let food_price = $(this).attr('food_price')
                 let container = $(this).parent('.cart_btn')
                 let count = container.children('input').val()
+                {#$(this).parent().parent().parent().addClass('done')#}
+
                 $('#cart_order').append(function () {
                     let food_in_cart = $('input[name="' + food_id + '"]')
                     if (food_in_cart.length > 0) {
@@ -194,11 +244,20 @@
                 })
             })
             {#$('.deleting').click(function () {#}
+            $('.delete_cart').click(function(){
+                let order_id =  $(this).attr('name')
+                console.log('111', order_id)
+                $('#cart_order').find('[name='+order_id+']').val(0)
+                validate_count()
+                cart_order_sum()
+            })
+
             $('#cart_order').on('click', '.deleting', function(){
                 $('input[name="' + $(this).attr("name") + '"]').val(0).attr('value', 0)
                 validate_count()
                 cart_order_sum()
             })
+
             $('#cart_order').on('click', 'input', function () {
                 validate_count()
                 cart_order_sum()
@@ -227,8 +286,8 @@
                                     <div id="flush-collapse_{{ provider|slugify }}_{{ forloop.counter }}"
                                          class="cat-container p-1 accordion-collapse collapse" aria-labelledby="flush-heading_{{ provider|slugify }}_{{ forloop.counter }}" data-bs-parent="#accordionFlushFood">
                                         {% for foo in cat.foods.all %}
-                                            <div class="food_block">
-                                                <div class="pl-1 w-100">
+                                            <div class="food_block" id="{{ foo.id }}">
+                                                <div class="p-2 w-100">
                                                     <div class="food_name">
                                                         <a href="{{ foo.link }}" target="_blank">{{ foo.title }}</a>
                                                     </div>
@@ -239,14 +298,17 @@
                                                     <p class="description">{{ foo.description }}. <br>
                                                         {% if foo.weight %}Вага:{{ foo.weight }}{% endif %}
                                                     </p>
-
                                                     <div class="cart_btn m-2">
-                                                        <input class="w-25" type="number" value="1" >
+                                                        <input type="number" value="1" >
                                                         <div class="btn btn-outline-success cart_add"
                                                              food_id="{{ foo.id }}"
                                                              food_price="{{ foo.price }}"
                                                              food_name="{{ foo.title }}">
-                                                            Add to cart </div>
+                                                            Add to cart
+                                                        </div>
+                                                        <div class="btn btn-outline-danger delete_cart" name="{{ foo.id }}">
+                                                            remove
+                                                        </div>
                                                     </div>
                                                     <em>last_update {{ foo.last_update }}</em>
                                                 </div>
